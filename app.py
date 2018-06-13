@@ -14,12 +14,18 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
 
-stockCode=api_key=os.environ.get('QUANDL_KEY')
-api_key=-"z5FzzicL2ERpgaJrzxs"
 startDate="2017-01-01"
-endDate="2018-01-01"
+endDate="2017-12-31"
+#apiKey=os.environ.get('QUANDL_KEY')
 
-data_raw = "https://www.quandl.com/api/v3/datasets/WIKI/%s/data.json?api_key=%s&start_date=%s&end_date=%s" % (stockCode, api_key, startDate, endDate)
+datelist = pd.period_range(startDate,endDate).tolist()
+req_params = {"api_key": "-z5FzzicL2ERpgaJrzxs", "ticker": "AAPL" , "qopts.columns": "ticker,date,open,close,adj_open,adj_close"} #, "date": datelist
+data_raw = requests.get("https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json", params=req_params)
+
+print(data_raw.status_code)
+raw_table=data_raw.json()
+data_table=raw_table["datatable"]
 
 
-
+data_col=[col['name'] for col in data_table['columns']]
+panda_table=pd.DataFrame(data_table['data'],columns=data_col)
