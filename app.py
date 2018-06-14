@@ -43,7 +43,7 @@ def index():
 #####################
 
 def requestData(in_params):
-	apiKey="-z5FzzicL2ERpgaJrzxs" #os.environ.get('QUANDL_KEY')
+	apiKey=os.environ.get('QUANDL_KEY')
 
 	req_params = {"api_key": apiKey, "ticker": in_params['tickerCode'], 
 	"qopts.columns": "ticker,date,open,close,adj_open,adj_close", 
