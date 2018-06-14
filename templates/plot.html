@@ -1,6 +1,17 @@
 <!DOCTYPE html> 
 <html lang="en">
 <head>
+
+<link
+href="https://cdn.pydata.org/bokeh/release/bokeh-0.12.7.min.css"
+rel="stylesheet" type="text/css">
+<link
+href="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.7.min.css"
+rel="stylesheet" type="text/css">
+<link
+href="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.12.7.min.css"
+rel="stylesheet" type="text/css">
+
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="Milestone Project" content="For Data Incubator 12 day prep program">
 <meta name="author" content="@eafox">
@@ -36,29 +47,20 @@ body {
 }
 </style>
 </head>
-<body>
+
 
 <div class="topnav">
   <a href="/">Home</a>
   <a target="_blank" href="https://github.com/eafox/DImilestone-project">GitHub</a>
-  <a class="active" href="/about">About</a>
+  <a href="/about">About</a>
 </div>
 
-<div style="padding-left:16px">
-  <h2>About</h2>
-
-Put text here
-https://www.w3schools.com/howto/howto_js_topnav.asp
-
-
-</div>
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<body>
+    {{tempDiv|safe}}
+    <script src="https://cdn.pydata.org/bokeh/release/bokeh-0.12.7.min.js"></script>
+    <script src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.7.min.js"></script>
+    <script src="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.12.7.min.js"></script>
+    {{tempScript|safe}}
 </body>
 </html>
 
