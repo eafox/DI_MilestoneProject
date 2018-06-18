@@ -1,4 +1,4 @@
-THE BASE OF THIS REPO WAS COPIED FROM THE FOLLOWING LINK:  
+THE BASE OF THIS REPOSITORY WAS COPIED FROM THE FOLLOWING LINK:  
 https://github.com/thedataincubator/flask-framework  
 Changes pushed by the current repo owner (eafox) are original work based on sources cited in about.html .    
 
