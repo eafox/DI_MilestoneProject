@@ -20,7 +20,6 @@ app = Flask(__name__)
 app.vars={}
 @app.route('/',methods=['GET','POST'])
 def index():
-	in_vars = {}
 	if request.method == 'POST':		
 		tempDF = requestData()
 		tempPlot = plotRequest(tempDF)
