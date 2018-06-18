@@ -21,15 +21,9 @@ app.vars={}
 @app.route('/',methods=['GET','POST'])
 def index():
 	in_vars = {}
-	if request.method == 'POST':
-		app.vars['tickerCode']=request.form['ht_tickerCode']
-		app.vars['startDate']=request.form['ht_startDate']
-		app.vars['endDate']=request.form['ht_endDate']
-		
-		app.vars['valSets']=request.form.getlist('val-sets')
-		
-		tempDF = requestData(app.vars)
-		tempPlot = plotRequest(tempDF, in_vars)
+	if request.method == 'POST':		
+		tempDF = requestData()
+		tempPlot = plotRequest(tempDF)
 		
 		script, div = components(tempPlot)		
 		return render_template('plot.html',tempScript=script,tempDiv=div)
@@ -42,12 +36,14 @@ def index():
 # GET DATA FROM API #
 #####################
 
-def requestData(in_params):
+def requestData():
 	apiKey=os.environ.get('QUANDL_KEY')
 
-	req_params = {"api_key": apiKey, "ticker": in_params['tickerCode'], 
+	req_params = {"api_key": apiKey, "ticker": request.form['ht_tickerCode'], 
 	"qopts.columns": "ticker,date,open,close,adj_open,adj_close", 
-	"date.gte": in_params['startDate'], "date.lte": in_params['endDate']} 
+	"date.gte": request.form['ht_startDate'], 
+	"date.lte": request.form['ht_endDate']} 
+	
 	data_raw = requests.get("https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json", params=req_params) #print(data_raw.status_code)
 
 
@@ -62,7 +58,7 @@ def requestData(in_params):
 ###################
 # PLOT WITH BOKEH #
 ###################
-def plotRequest(df, in_params):
+def plotRequest(df):
 	source = ColumnDataSource(data=df)
 
 	stockPlot = figure(title= "Stock Prices from Quandl WIKI", 
@@ -71,13 +67,13 @@ def plotRequest(df, in_params):
 	y_axis_label='Value (in USD)',
 	tools="reset,undo,redo,pan,tap,box_zoom,box_select,hover")
 
-	if 'ht_open' in app.vars['valSets'] or not app.vars['valSets']:
+	if 'ht_open' in request.form.getlist('val-sets') or not request.form.getlist('val-sets'):
 		stockPlot.line(x='date',y='open',source=source,legend="Opening Price",line_width=2,color="darkgreen")
-	if 'ht_close' in app.vars['valSets'] or not app.vars['valSets']:
+	if 'ht_close' in request.form.getlist('val-sets') or not request.form.getlist('val-sets'):
 		stockPlot.line(x='date',y='close',source=source,legend="Closing Price",line_width=2,color="darkred")
-	if 'ht_open-a' in app.vars['valSets'] or not app.vars['valSets']:
+	if 'ht_open-a' in request.form.getlist('val-sets') or not request.form.getlist('val-sets'):
 		stockPlot.line(x='date',y='adj_open',source=source,legend="Opening Price (adjusted)",line_width=2,color="limegreen")
-	if 'ht_close-a' in app.vars['valSets'] or not app.vars['valSets']:
+	if 'ht_close-a' in request.form.getlist('val-sets') or not request.form.getlist('val-sets'):
 		stockPlot.line(x='date',y='adj_close',source=source,legend="Closing Price (adjusted)",line_width=2,color="red")
 	
 	return(stockPlot)
