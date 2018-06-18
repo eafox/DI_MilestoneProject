@@ -48,8 +48,9 @@ def requestData():
 
 	data_table=data_raw.json()["datatable"]
 
-	panda_table=pd.DataFrame(data_table['data'],columns=data_table['column_names'])
-	panda_table['date']=pd.to_datetime(panda_table['date'], format='%Y-%m-%d')
+	data_col=[col['name'] for col in data_table['columns']]
+	panda_table=pd.DataFrame(data_table['data'],columns=data_col)
+	panda_table['date']=pd.to_datetime(panda_table['date'], format='%Y-%m-%d'
 	
 	return(panda_table)
 
