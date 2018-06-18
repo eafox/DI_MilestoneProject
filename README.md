@@ -1,3 +1,7 @@
+THE BASE OF THIS REPO WAS COPIED FROM THE FOLLOWING LINK:  
+https://github.com/thedataincubator/flask-framework  
+Changes pushed by the current repo owner are original work based on sources cited in about.html  
+
 # Flask on Heroku
 
 This project is intended to help you tie together some important concepts and
