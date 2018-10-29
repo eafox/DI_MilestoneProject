@@ -3,6 +3,6 @@ requests>=2.20.0
 pandas==0.20.3
 bokeh==0.12.7
 dill
-flask==0.12.2
+flask>=0.12.3
 pip
 
